@@ -254,5 +254,35 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+            <script>
+		const form = document.getElementById("contactForm");
+		const success = document.querySelector("#success");
+		const fail = document.querySelector("#fail");
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const formData = new FormData(form);
+			let formid = "1FAIpQLSc4oJ5kkFNQAza2W1V_J_gZufo7bMXXEDo2sO4eozlq19GrvA";
+			const googleFormUrl = `https://docs.google.com/forms/d/e/${formid}/formResponse`;
+			try {
+				const response = await fetch(googleFormUrl, {
+					method: "POST",
+					body: formData,
+					mode:"no-cors"
+				});
+				// if (response.ok){
+				form.remove();
+				success.hidden = false;
+			// // }
+			// 	else {
+			// 		throw new Error('Improper data');
+			// 	}
+			} catch (error) {
+				console.log("Error submitting form", error);
+				form.remove();
+				fail.hidden = false;
+			}
+		});
+
+	</script>
     </body>
 </html>
